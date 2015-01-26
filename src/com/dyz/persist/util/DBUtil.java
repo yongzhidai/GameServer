@@ -15,6 +15,7 @@ import org.apache.ibatis.session.SqlSessionFactoryBuilder;
 public enum DBUtil {
 
 	gamedata("mybaits-config-gamedata.xml"),
+	
 	roledata("mybaits-config-roledata.xml");
 	
 	private String configFile;
