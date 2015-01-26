@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration
+PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+	<environments default="product">
+		<environment id="development">
+			<transactionManager type="JDBC" />
+			<dataSource type="POOLED">
+				<property name="driver" value="com.mysql.jdbc.Driver}" />
+				<property name="url" value="jdbc:mysql://localhost:3306/gamedata" />
+				<property name="username" value="root" />
+				<property name="password" value="root" />
+			</dataSource>
+		</environment>
+		<environment id="product">
+			<transactionManager type="MANAGED" />
+			<dataSource type="JNDI">
+				<property name="data_source" value="java:comp/env/jdbc/gamedata" />
+			</dataSource>
+		</environment>
+	</environments>
+	<mappers>
+		<mapper resource="dbsqlmapper/UserMapper.xml" />
+	</mappers>
+</configuration>
