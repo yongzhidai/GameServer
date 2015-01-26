@@ -2,9 +2,10 @@ package com.dyz.persist.gamedata.user;
 
 import java.util.List;
 
+import com.dyz.persist.gamedata.common.IGameDataCach;
 import com.dyz.persist.util.DBUtil;
 
-public class UserManager implements com.dyz.persist.gamedata.common.IGameDataCach{
+public class UserManager implements IGameDataCach{
 	private UserMapper userMapper = DBUtil.gamedata.getMapper(UserMapper.class);
 	
 	private UserManager(){}
