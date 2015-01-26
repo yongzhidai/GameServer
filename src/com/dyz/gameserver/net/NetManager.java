@@ -49,4 +49,8 @@ public class NetManager {
 			e.printStackTrace();
 		}
 	}
+	
+	public void stop(){
+		acceptor.dispose(true);
+	}
 }

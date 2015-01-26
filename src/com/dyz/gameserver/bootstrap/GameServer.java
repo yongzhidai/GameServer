@@ -8,10 +8,13 @@ public class GameServer {
 
 	private static GameServer instance=new GameServer();
 	
-	public static MsgDispatcher msgDispatcher= new MsgDispatcher();
+	public static MsgDispatcher msgDispatcher = new MsgDispatcher();;
 	
+	private NetManager netManager;
 	
-	private GameServer(){}
+	private GameServer(){
+		netManager = new NetManager();
+	}
 	
 	public static GameServer getInstance(){
 		return instance;
@@ -19,12 +22,13 @@ public class GameServer {
 	
 	public void startUp(){
 		System.out.println("start game server ...");
-		new NetManager().startListner(new MinaMsgHandler(), 1101);
+		netManager.startListner(new MinaMsgHandler(), 1101);
 		System.out.println("game server started...");
 		
 	}
 	
 	public void stop(){
+		netManager.stop();
 		System.out.println("stop game server ...");
 	}
 	
