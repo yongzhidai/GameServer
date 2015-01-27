@@ -12,11 +12,15 @@ import org.apache.mina.filter.executor.ExecutorFilter;
 import org.apache.mina.filter.executor.OrderedThreadPoolExecutor;
 import org.apache.mina.transport.socket.SocketSessionConfig;
 import org.apache.mina.transport.socket.nio.NioSocketAcceptor;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.dyz.gameserver.net.codec.GameProtocolcodecFactory;
 
 public class NetManager {
 
+	private static final Logger logger = LoggerFactory.getLogger(NetManager.class);
+	
 	private NioSocketAcceptor acceptor;
 	private OrderedThreadPoolExecutor threadpool;
 	
@@ -45,7 +49,7 @@ public class NetManager {
 		try {
 			acceptor.bind(new InetSocketAddress(listenPort));
 		} catch (IOException e) {
-			System.out.println("无法监听此端口:"+listenPort);
+			logger.error("无法监听此端口:"+listenPort);
 			e.printStackTrace();
 		}
 	}

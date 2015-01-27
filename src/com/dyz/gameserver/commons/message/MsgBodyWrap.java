@@ -15,7 +15,6 @@ import java.io.ObjectOutputStream;
  * 
  */
 public class MsgBodyWrap {
-	//	private boolean read = true;
 	private ByteArrayInputStream in;
 	private ByteArrayOutputStream out;
 

@@ -1,10 +1,15 @@
 package com.dyz.gameserver.bootstrap;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.dyz.gameserver.commons.message.MsgDispatcher;
 import com.dyz.gameserver.net.MinaMsgHandler;
 import com.dyz.gameserver.net.NetManager;
 
 public class GameServer {
+	
+	private static final Logger logger = LoggerFactory.getLogger(GameServer.class);
 
 	private static GameServer instance=new GameServer();
 	
@@ -21,15 +26,15 @@ public class GameServer {
 	}
 	
 	public void startUp(){
-		System.out.println("start game server ...");
+		logger.info("start game server ...");
 		netManager.startListner(new MinaMsgHandler(), 1101);
-		System.out.println("game server started...");
+		logger.info("game server started...");
 		
 	}
 	
 	public void stop(){
 		netManager.stop();
-		System.out.println("stop game server ...");
+		logger.info("stop game server ...");
 	}
 	
 }

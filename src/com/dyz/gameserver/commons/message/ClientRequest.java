@@ -3,7 +3,6 @@ package com.dyz.gameserver.commons.message;
 import java.io.IOException;
 
 /**
- * {@link RequestMsg}的一个实现。<br/>
  * 使用byte数组作为缓冲区，使用{@link MsgBodyWrap}将byte数组转成合适的数据。
  * 
  * @author dyz
