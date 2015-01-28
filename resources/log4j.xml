@@ -1,22 +1,40 @@
-<?xml version="1.0" encoding="UTF-8" ?>
-<!DOCTYPE log4j:configuration SYSTEM "log4j.dtd"><log4j:configuration xmlns:log4j="http://jakarta.apache.org/log4j/"	debug="false">	<appender name="CONSOLE" class="org.apache.log4j.ConsoleAppender">
-		<param name="Threshold" value="ALL" />
+<?xml version="1.0" encoding="UTF-8"?>
+<log4j:configuration debug="true">
+
+	<appender name="stdout" class="org.apache.log4j.ConsoleAppender">
 		<layout class="org.apache.log4j.PatternLayout">
-			<param name="ConversionPattern" value="[%d][%p,%c{1}] %m%n" />
-		</layout>		<filter class="org.apache.log4j.varia.LevelRangeFilter">
-			<param name="levelMin" value="debug" />
-			<param name="levelMax" value="error" />
-			<param name="AcceptOnMatch" value="true" />
-		</filter>
-	</appender>
-	<appender name="FILE" class="org.apache.log4j.FileAppender">
-		<param name="File" value="D:/gameserver.log" />
-		<layout class="org.apache.log4j.PatternLayout">
-			<param name="ConversionPattern" value="%d - %c -%-4r [%t] %-5p %x - %m%n" />
+			<param name="ConversionPattern" value="%d (%F:%L) %-5p %c - %m%n" />
 		</layout>
 	</appender>
-	<root>		<level value="info" />
-		<appender-ref ref="CONSOLE" />
+
+	<appender name="fileout" class="org.apache.log4j.DailyRollingFileAppender">
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern" value="%d [%t] (%F:%L) %-5p %c - %m%n" />
+		</layout>
+		<param name="File" value="E:/logs/server_log.txt" />
+	</appender>
+
+	<appender name="monitorAppender" class="org.apache.log4j.DailyRollingFileAppender">
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern" value="%m%n" />
+		</layout>
+		<param name="DatePattern" value="'.'yyyyMMddHH" />
+		<param name="File" value="mtlogs/mt_log.txt" />
+		<param name="BufferedIO" value="true" />
+		<!-- 8K为一个写单元 -->
+		<param name="BufferSize" value="8192" />
+	</appender>
+
+	<appender name="async" class="org.apache.log4j.AsyncAppender">
+		<appender-ref ref="monitorAppender" />
+	</appender>
+
+	<root>
+		<priority value="info" />
+		<appender-ref ref="stdout" />
 	</root>
-</log4j:configuration>
-
+	<logger name="monitorLogger" additivity="false">
+		<level value="info" />
+		<appender-ref ref="async" />
+	</logger>
+</log4j:configuration>
