@@ -1,6 +1,5 @@
 /com/
 /dbsqlmapper/
-/log4j.xml
+/log4j.properties
 /mybaits-config-gamedata.xml
 /mybaits-config-roledata.xml
-/log4j.properties
