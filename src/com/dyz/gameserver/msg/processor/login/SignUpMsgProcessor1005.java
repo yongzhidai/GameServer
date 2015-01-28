@@ -17,12 +17,12 @@ public class SignUpMsgProcessor1005 extends MsgProcessor implements INotAuthProc
 		String phone = request.getString();
 		String email = request.getString();
 		String passwd = request.getString();
-		
 		User user = new User();
 		user.setName(name);
 		user.setPhonenumber(phone);
 		user.setEmail(email);
 		user.setPasswd(passwd);
+		user.setRegdate(System.currentTimeMillis());
 		
 		int id = UserService.getInstance().addUser(user);
 		if(id>=0){

@@ -55,6 +55,8 @@ public class NetManager {
 	}
 	
 	public void stop(){
+		acceptor.unbind();
+		threadpool.shutdown();
 		acceptor.dispose(true);
 	}
 }
