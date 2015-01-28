@@ -1,6 +1,8 @@
 package com.dyz.gameserver.msg.processor.common;
 
+import com.dyz.gameserver.msg.processor.login.LoginMsgProcessor1003;
 import com.dyz.gameserver.msg.processor.login.OpenAppMsgProcessor1001;
+import com.dyz.gameserver.msg.processor.login.SignUpMsgProcessor1005;
 
 
 /**
@@ -10,7 +12,12 @@ import com.dyz.gameserver.msg.processor.login.OpenAppMsgProcessor1001;
  */
 public enum MsgProcessorRegister {
 	/**用户打开app*/
-	openApp(1001,new OpenAppMsgProcessor1001());
+	openApp(1001,new OpenAppMsgProcessor1001()),
+	/**登陆处理器*/
+	login(1003,new LoginMsgProcessor1003()),
+	/**用户注册处理器*/
+	signUp(1005,new SignUpMsgProcessor1005());
+	
 	
 	private int msgCode;
 	private MsgProcessor processor;

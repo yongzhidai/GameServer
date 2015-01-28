@@ -53,12 +53,19 @@ public class GameSession {
 		return this.address;
 	}
 	
-	public  void setLogin(){
-		this.isLogin=true;
+	public  void setLogin(boolean isLogin){
+		this.isLogin=isLogin;
 	}
 	public boolean isLogin(){
 		return this.isLogin;
 	}
 	
+	public void setRole(Object obj){
+		this.role = obj;
+	}
+	
+	public <T> T getRole(Class<T> t){
+		return (T)this.role;
+	}
 	
 }
