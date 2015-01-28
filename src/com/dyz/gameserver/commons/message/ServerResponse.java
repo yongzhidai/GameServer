@@ -14,7 +14,9 @@ import com.dyz.gameserver.net.codec.MsgProtocol;
 public class ServerResponse implements ResponseMsg {
 	protected MsgBodyWrap output = MsgBodyWrap.newInstance4Out();
 	private int msgCode;
-	public ServerResponse() {
+	/**必须调用此方法设置消息号*/
+	public ServerResponse(int msgCode) {
+		setMsgCode(msgCode);
 	}
 
 	public void setMsgCode(int code) {

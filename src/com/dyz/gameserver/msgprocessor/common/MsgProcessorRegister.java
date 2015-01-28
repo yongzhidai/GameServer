@@ -1,6 +1,6 @@
 package com.dyz.gameserver.msgprocessor.common;
 
-import com.dyz.test.msgprocessor.TestProcessor;
+import com.dyz.gameserver.msgprocessor.login.OpenAppMsgProcessor1001;
 
 /**
  * 消息处理器注册类，所有的消息处理器，都在此注册实例化
@@ -9,7 +9,7 @@ import com.dyz.test.msgprocessor.TestProcessor;
  */
 public enum MsgProcessorRegister {
 
-	test(1001,new TestProcessor());
+	openApp(1001,new OpenAppMsgProcessor1001());
 	
 	private int msgCode;
 	private MsgProcessor processor;
