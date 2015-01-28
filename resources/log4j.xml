@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE log4j:configuration SYSTEM "log4j.dtd">
 <log4j:configuration debug="true">
 
 	<appender name="stdout" class="org.apache.log4j.ConsoleAppender">
@@ -6,8 +7,12 @@
 			<param name="ConversionPattern" value="%d (%F:%L) %-5p %c - %m%n" />
 		</layout>
 	</appender>
+	<root>
+		<priority value="info" />
+		<appender-ref ref="stdout" />
+	</root>
 
-	<appender name="fileout" class="org.apache.log4j.DailyRollingFileAppender">
+	<!-- <appender name="fileout" class="org.apache.log4j.DailyRollingFileAppender">
 		<layout class="org.apache.log4j.PatternLayout">
 			<param name="ConversionPattern" value="%d [%t] (%F:%L) %-5p %c - %m%n" />
 		</layout>
@@ -21,20 +26,12 @@
 		<param name="DatePattern" value="'.'yyyyMMddHH" />
 		<param name="File" value="mtlogs/mt_log.txt" />
 		<param name="BufferedIO" value="true" />
-		<!-- 8K为一个写单元 -->
+		8K为一个写单元
 		<param name="BufferSize" value="8192" />
 	</appender>
-
-	<appender name="async" class="org.apache.log4j.AsyncAppender">
-		<appender-ref ref="monitorAppender" />
-	</appender>
-
-	<root>
-		<priority value="info" />
-		<appender-ref ref="stdout" />
-	</root>
-	<logger name="monitorLogger" additivity="false">
+ -->
+	<!-- <logger name="monitorLogger" additivity="false">
 		<level value="info" />
-		<appender-ref ref="async" />
-	</logger>
+		<appender-ref ref="monitorAppender" />
+	</logger> -->
 </log4j:configuration>

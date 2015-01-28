@@ -12,7 +12,7 @@
 	<classpathentry kind="lib" path="WEB-INF/lib/mysql-connector-java-5.0.6-bin.jar"/>
 	<classpathentry kind="lib" path="WEB-INF/lib/slf4j-api-1.7.7.jar"/>
 	<classpathentry kind="lib" path="WEB-INF/lib/slf4j-log4j12-1.6.2.jar"/>
-	<classpathentry kind="lib" path="WEB-INF/lib/mina-core-2.0.9.jar" sourcepath="D:/jar/apache-mina-2.0.9-src.zip"/>
+	<classpathentry kind="lib" path="WEB-INF/lib/mina-core-2.0.9.jar" sourcepath="E:/lib/apache-mina-2.0.9-src.zip"/>
 	<classpathentry kind="lib" path="WEB-INF/lib/commons-lang-2.6.jar"/>
 	<classpathentry kind="lib" path="WEB-INF/lib/javassist-3.11.0.GA.jar"/>
 	<classpathentry kind="lib" path="WEB-INF/lib/jzlib-1.1.3.jar"/>
