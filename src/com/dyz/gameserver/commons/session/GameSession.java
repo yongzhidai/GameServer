@@ -10,7 +10,7 @@ import org.apache.mina.core.session.IoSession;
 import com.dyz.gameserver.commons.message.ResponseMsg;
 /**
  * 游戏中的session回话，封装了mina的session
- * @author Administrator
+ * @author dyz
  *
  */
 public class GameSession {

@@ -13,7 +13,7 @@ import com.dyz.gameserver.msg.processor.common.MsgProcessorRegister;
 
 /**
  * 消息分发器，根据消息号，找到相应的消息处理器
- * @author Administrator
+ * @author dyz
  *
  */
 public class MsgDispatcher {

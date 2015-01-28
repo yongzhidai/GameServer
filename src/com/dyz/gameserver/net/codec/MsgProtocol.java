@@ -2,7 +2,7 @@ package com.dyz.gameserver.net.codec;
 
 /**
  * 消息协议相关常量
- * @author Administrator
+ * @author dyz
  *
  */
 public interface MsgProtocol {

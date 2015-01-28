@@ -5,7 +5,7 @@ import com.dyz.gameserver.msg.processor.login.OpenAppMsgProcessor1001;
 
 /**
  * 消息处理器注册类，所有的消息处理器，都在此注册实例化
- * @author Administrator
+ * @author dyz
  *
  */
 public enum MsgProcessorRegister {
