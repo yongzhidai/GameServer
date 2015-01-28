@@ -7,9 +7,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.dyz.gameserver.commons.session.GameSession;
-import com.dyz.gameserver.msgprocessor.common.INotAuthProcessor;
-import com.dyz.gameserver.msgprocessor.common.MsgProcessor;
-import com.dyz.gameserver.msgprocessor.common.MsgProcessorRegister;
+import com.dyz.gameserver.msg.processor.common.INotAuthProcessor;
+import com.dyz.gameserver.msg.processor.common.MsgProcessor;
+import com.dyz.gameserver.msg.processor.common.MsgProcessorRegister;
 
 /**
  * 消息分发器，根据消息号，找到相应的消息处理器

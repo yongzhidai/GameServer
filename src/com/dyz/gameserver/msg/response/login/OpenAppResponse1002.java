@@ -1,4 +1,4 @@
-package com.dyz.gameserver.response.login;
+package com.dyz.gameserver.msg.response.login;
 
 import java.io.IOException;
 

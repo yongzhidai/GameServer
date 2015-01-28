@@ -1,6 +1,7 @@
-package com.dyz.gameserver.msgprocessor.common;
+package com.dyz.gameserver.msg.processor.common;
 
-import com.dyz.gameserver.msgprocessor.login.OpenAppMsgProcessor1001;
+import com.dyz.gameserver.msg.processor.login.OpenAppMsgProcessor1001;
+
 
 /**
  * 消息处理器注册类，所有的消息处理器，都在此注册实例化

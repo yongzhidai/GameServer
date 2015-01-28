@@ -1,4 +1,4 @@
-package com.dyz.gameserver.msgprocessor.common;
+package com.dyz.gameserver.msg.processor.common;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

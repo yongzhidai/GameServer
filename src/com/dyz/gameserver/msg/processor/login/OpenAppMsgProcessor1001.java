@@ -1,10 +1,10 @@
-package com.dyz.gameserver.msgprocessor.login;
+package com.dyz.gameserver.msg.processor.login;
 
 import com.dyz.gameserver.commons.message.ClientRequest;
 import com.dyz.gameserver.commons.session.GameSession;
-import com.dyz.gameserver.msgprocessor.common.INotAuthProcessor;
-import com.dyz.gameserver.msgprocessor.common.MsgProcessor;
-import com.dyz.gameserver.response.login.OpenAppResponse1002;
+import com.dyz.gameserver.msg.processor.common.INotAuthProcessor;
+import com.dyz.gameserver.msg.processor.common.MsgProcessor;
+import com.dyz.gameserver.msg.response.login.OpenAppResponse1002;
 
 /**
  * 
