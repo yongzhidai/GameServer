@@ -11,6 +11,8 @@ public class GameServer {
 	
 	private static final Logger logger = LoggerFactory.getLogger(GameServer.class);
 
+	private int port = 1101;
+	
 	private static GameServer instance=new GameServer();
 	
 	public static MsgDispatcher msgDispatcher = new MsgDispatcher();;
@@ -27,7 +29,7 @@ public class GameServer {
 	
 	public void startUp(){
 		logger.info("start game server ...");
-		netManager.startListner(new MinaMsgHandler(), 1101);
+		netManager.startListner(new MinaMsgHandler(), port);
 		logger.info("game server started...");
 		
 	}

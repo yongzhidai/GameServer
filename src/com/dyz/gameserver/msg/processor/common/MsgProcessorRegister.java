@@ -9,7 +9,7 @@ import com.dyz.gameserver.msg.processor.login.OpenAppMsgProcessor1001;
  *
  */
 public enum MsgProcessorRegister {
-
+	/**用户打开app*/
 	openApp(1001,new OpenAppMsgProcessor1001());
 	
 	private int msgCode;

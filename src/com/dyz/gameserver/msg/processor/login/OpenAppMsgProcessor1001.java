@@ -8,7 +8,7 @@ import com.dyz.gameserver.msg.response.login.OpenAppResponse1002;
 
 /**
  * 
- *
+ *用户打开应用时，做一些初始化操作
  * @author  daiyongzhi
  * @date 2015年1月28日 下午1:15:21
  * @version V1.0
