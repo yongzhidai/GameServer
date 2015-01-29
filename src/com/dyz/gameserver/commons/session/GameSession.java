@@ -68,4 +68,8 @@ public class GameSession {
 		return (T)this.role;
 	}
 	
+	public void close(){
+		session.close(false);
+	}
+	
 }
