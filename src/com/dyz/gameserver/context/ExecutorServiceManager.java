@@ -26,7 +26,7 @@ public class ExecutorServiceManager {
 		executorServiceForDB = (ScheduledThreadPoolExecutor) Executors.newScheduledThreadPool(10,new ServerThreadFactory("ExecutorServiceForDB"));
 	}
 	
-	public ScheduledThreadPoolExecutor ExecutorServiceForDB(){
+	public ScheduledThreadPoolExecutor getExecutorServiceForDB(){
 		return executorServiceForDB;
 	}
 	
