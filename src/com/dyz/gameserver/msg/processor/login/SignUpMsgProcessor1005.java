@@ -27,8 +27,12 @@ public class SignUpMsgProcessor1005 extends MsgProcessor implements INotAuthProc
 		user.setRegdate(System.currentTimeMillis());
 		
 		UserService.getInstance().insertUser(user);
+		if(user.getId()!=null){
+			gameSession.sendMsg(new SignUpResponse1006(true));
+		}else{
+			gameSession.sendMsg(new SignUpResponse1006(false));
+		}
 		
-		gameSession.sendMsg(new SignUpResponse1006(true));
 	}
 
 }

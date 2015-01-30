@@ -169,4 +169,9 @@ public class UserDAOImpl implements UserDAO {
             return record;
         }
     }
+
+	@Override
+	public void insertForId(User user) throws SQLException {
+		sqlMapClient.insert("t_user.customizationInsert", user);
+	}
 }

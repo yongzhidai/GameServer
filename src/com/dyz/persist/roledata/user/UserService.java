@@ -18,7 +18,7 @@ public class UserService {
 	
 	public void insertUser(User user){
 		 try {
-			userDao.insert(user);
+			userDao.insertForId(user);
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
