@@ -3,40 +3,50 @@ package com.dyz.persist.util;
 import java.io.IOException;
 import java.io.InputStream;
 
-import org.apache.ibatis.io.Resources;
-import org.apache.ibatis.session.SqlSession;
-import org.apache.ibatis.session.SqlSessionFactory;
-import org.apache.ibatis.session.SqlSessionFactoryBuilder;
+import com.ibatis.common.resources.Resources;
+import com.ibatis.sqlmap.client.SqlMapClient;
+import com.ibatis.sqlmap.engine.builder.xml.SqlMapConfigParser;
 /**
- * 操作数据库工具类
+ * 操作数据库工具类,负责初始化ibatis的SqlMapClient，
+ * 注意，如果ibatis的config文件中没有配置sqlMap元素，不要初始化，否则会报错
  * @author dyz
  *
  */
-public enum DBUtil {
+public class DBUtil {
 
-	gamedata("mybaits-config-gamedata.xml"),
+	private static SqlMapClient roledataSqlMapClient;
 	
-	roledata("mybaits-config-roledata.xml");
+	private static SqlMapClient gamedataSqlMapClient;
 	
-	private String configFile;
+	public static void initAllSqlMapClient()throws Exception{
+		//gamedataSqlMapClient=initSqlMapClient("ibatis-gamedata-config.xml");
+		roledataSqlMapClient=initSqlMapClient("ibatis-roledata-config.xml");
+	}
 	
-	private SqlSessionFactory sessionFactory;
-	
-	private DBUtil(String cfgName){
-		this.configFile = cfgName;
+	private static SqlMapClient initSqlMapClient(String cfgName) throws Exception{
 		InputStream in = null;
-		try {
-			in = Resources.getResourceAsStream(this.configFile);
-		} catch (IOException e) {
-			System.out.println("read mybatis config file failed");
-			e.printStackTrace();
+		SqlMapClient sqlMapClient = null;
+		try{
+			in = Resources.getResourceAsStream(cfgName);
+			sqlMapClient = new SqlMapConfigParser().parse(in);
+		}finally{
+			try {
+				in.close();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
 		}
-		sessionFactory = new SqlSessionFactoryBuilder().build(in);
+		return sqlMapClient;
+	}
+
+	public static SqlMapClient getRoledataSqlMapClient() {
+		return roledataSqlMapClient;
+	}
+
+	public static SqlMapClient getGamedataSqlMapClient() {
+		return gamedataSqlMapClient;
 	}
 	
-	public <T> T getMapper(Class<T> mapper){
-	    SqlSession sqlSession = sessionFactory.openSession();
-	    return sqlSession.getMapper(mapper);
-	}
+	
 	
 }

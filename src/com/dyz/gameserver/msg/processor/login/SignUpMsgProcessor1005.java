@@ -1,5 +1,6 @@
 package com.dyz.gameserver.msg.processor.login;
 
+
 import com.dyz.gameserver.commons.message.ClientRequest;
 import com.dyz.gameserver.commons.session.GameSession;
 import com.dyz.gameserver.msg.processor.common.INotAuthProcessor;
@@ -17,6 +18,7 @@ public class SignUpMsgProcessor1005 extends MsgProcessor implements INotAuthProc
 		String phone = request.getString();
 		String email = request.getString();
 		String passwd = request.getString();
+		
 		User user = new User();
 		user.setName(name);
 		user.setPhonenumber(phone);
@@ -24,15 +26,9 @@ public class SignUpMsgProcessor1005 extends MsgProcessor implements INotAuthProc
 		user.setPasswd(passwd);
 		user.setRegdate(System.currentTimeMillis());
 		
-		int id = UserService.getInstance().addUser(user);
-		if(id>=0){
-			user.setId(id);
-			gameSession.setLogin(true);
-			gameSession.setRole(user);
-			gameSession.sendMsg(new SignUpResponse1006(true));
-		}else{
-			gameSession.sendMsg(new SignUpResponse1006(false));
-		}
+		UserService.getInstance().insertUser(user);
+		
+		gameSession.sendMsg(new SignUpResponse1006(true));
 	}
 
 }

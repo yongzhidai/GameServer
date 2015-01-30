@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE ibatorConfiguration PUBLIC "-//Apache Software Foundation//DTD Apache iBATIS Ibator Configuration 1.0//EN" "http://ibatis.apache.org/dtd/ibator-config_1_0.dtd" >
+<ibatorConfiguration>
+<classPathEntry location="D:\jar\mysql-connector-java-5.1.8-bin.jar" />
+
+	<ibatorContext id="context1">
+		<jdbcConnection driverClass="com.mysql.jdbc.Driver"
+			connectionURL="jdbc:mysql://localhost:3306/roledata" userId="root"
+			password="root">
+		</jdbcConnection>
+
+		<javaModelGenerator targetPackage="com.dyz.persist.roledata.user"
+			targetProject="GameServer" />
+		<sqlMapGenerator targetPackage="dbsqlmapper.roledata"
+			targetProject="GameServer" />
+		<daoGenerator targetPackage="com.dyz.persist.roledata.user"
+			targetProject="GameServer" type="GENERIC-CI" />
+		<table schema="public" tableName="t_user" domainObjectName="User">
+			<columnRenamingRule searchString="^f_" replaceString="" />
+		</table>
+	</ibatorContext>
+</ibatorConfiguration>

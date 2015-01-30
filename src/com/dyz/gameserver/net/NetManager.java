@@ -24,7 +24,7 @@ public class NetManager {
 	private NioSocketAcceptor acceptor;
 	private OrderedThreadPoolExecutor threadpool;
 	
-	public  void startListner(IoHandler iohandler,int listenPort){
+	public  void startListner(IoHandler iohandler,int listenPort) throws Exception{
 		acceptor = new NioSocketAcceptor();
 		acceptor.setBacklog(100);
 		acceptor.setReuseAddress(true);
@@ -46,12 +46,7 @@ public class NetManager {
 		sc.setTcpNoDelay(true);// flush函数的调用 设置为非延迟发送，为true则不组装成大包发送，收到东西马上发出   
 		sc.setSoLinger(0);
 		sc.setIdleTime(IdleStatus.READER_IDLE, timeout);
-		try {
-			acceptor.bind(new InetSocketAddress(listenPort));
-		} catch (IOException e) {
-			logger.error("无法监听此端口:"+listenPort);
-			e.printStackTrace();
-		}
+		acceptor.bind(new InetSocketAddress(listenPort));
 	}
 	
 	public void stop(){

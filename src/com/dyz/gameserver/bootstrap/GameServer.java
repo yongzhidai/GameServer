@@ -6,6 +6,7 @@ import org.slf4j.LoggerFactory;
 import com.dyz.gameserver.commons.message.MsgDispatcher;
 import com.dyz.gameserver.net.MinaMsgHandler;
 import com.dyz.gameserver.net.NetManager;
+import com.dyz.persist.util.DBUtil;
 
 public class GameServer {
 	
@@ -28,9 +29,17 @@ public class GameServer {
 	}
 	
 	public void startUp(){
-		logger.info("start game server ...");
-		netManager.startListner(new MinaMsgHandler(), port);
-		logger.info("game server started...");
+		try {
+			logger.info("开始启动服务器 ...");
+			DBUtil.initAllSqlMapClient();
+			logger.info("数据库连接初始化完成");
+			netManager.startListner(new MinaMsgHandler(), port);
+			logger.info("服务器监听端口:{}完成",port);
+			logger.info("game server started...");
+		} catch (Exception e) {
+			logger.error("服务器启动失败");
+			e.printStackTrace();
+		}
 		
 	}
 	

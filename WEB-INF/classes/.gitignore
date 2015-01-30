@@ -1,5 +1,4 @@
+/ibatis-gamedata-config.xml
+/ibatis-roledata-config.xml
 /com/
 /dbsqlmapper/
-/log4j.xml
-/mybaits-config-gamedata.xml
-/mybaits-config-roledata.xml

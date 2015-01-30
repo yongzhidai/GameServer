@@ -1,18 +1,28 @@
 package com.dyz.persist.roledata.user;
 
+import java.sql.SQLException;
+
 import com.dyz.persist.util.DBUtil;
 
 public class UserService {
 
-	private static final UserService userService = new UserService();
+	private final UserDAO userDao = new UserDAOImpl(DBUtil.getRoledataSqlMapClient());
+	
+	private static UserService userService = new UserService();
+	
+	private UserService(){}
 	
 	public static UserService getInstance(){
 		return userService;
 	}
 	
-	private final UserMapper userMapper = DBUtil.roledata.getMapper(UserMapper.class);
-	
-	public int addUser(User record){
-		return userMapper.insert(record);
+	public void insertUser(User user){
+		 try {
+			userDao.insert(user);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 	}
+	
+	
 }
