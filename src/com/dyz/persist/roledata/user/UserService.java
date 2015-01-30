@@ -1,6 +1,7 @@
 package com.dyz.persist.roledata.user;
 
 import java.sql.SQLException;
+import java.util.List;
 
 import com.dyz.persist.util.DBUtil;
 
@@ -16,11 +17,18 @@ public class UserService {
 		return userService;
 	}
 	
-	public void insertUser(User user){
-		 try {
-			userDao.insertForId(user);
-		} catch (SQLException e) {
-			e.printStackTrace();
+	public void insertUser(User user) throws SQLException{
+		userDao.insertForId(user);
+	}
+	
+	public User selectUser(String phone,String passwd) throws SQLException{
+		UserExample userExample = new UserExample();
+		userExample.createCriteria().andPhonenumberEqualTo(phone).andPasswdEqualTo(passwd);
+		List<User> users = userDao.selectByExample(userExample);
+		if(users!=null){
+			return users.get(0);
+		}else{
+			return null;
 		}
 	}
 	

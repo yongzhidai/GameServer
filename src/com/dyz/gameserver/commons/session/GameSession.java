@@ -64,6 +64,7 @@ public class GameSession {
 		this.role = obj;
 	}
 	
+	@SuppressWarnings("unchecked")
 	public <T> T getRole(Class<T> t){
 		return (T)this.role;
 	}

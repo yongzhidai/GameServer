@@ -8,6 +8,8 @@ import org.slf4j.LoggerFactory;
 import com.dyz.gameserver.bootstrap.GameServer;
 import com.dyz.gameserver.commons.message.ClientRequest;
 import com.dyz.gameserver.commons.session.GameSession;
+import com.dyz.gameserver.context.GameServerContext;
+import com.dyz.gameserver.sprite.Character;
 
 public class MinaMsgHandler extends IoHandlerAdapter{
 	
@@ -38,6 +40,14 @@ public class MinaMsgHandler extends IoHandlerAdapter{
 	
 	@Override
 	public void sessionClosed(IoSession session) throws Exception {
+		GameSession gameSession = GameSession.getInstance(session);
+		if(gameSession!=null){
+			Character character = gameSession.getRole(Character.class);
+			if(character!=null){
+				character.destroy();
+				GameServerContext.removeCharacter(character);
+			}
+		}
 		logger.info("a session closed");
 	}
 }
