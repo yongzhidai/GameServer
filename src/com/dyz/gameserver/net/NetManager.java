@@ -1,8 +1,7 @@
 package com.dyz.gameserver.net;
 
 import java.net.InetSocketAddress;
-import java.util.concurrent.ThreadFactory;
-import java.util.concurrent.atomic.AtomicInteger;
+import java.util.concurrent.TimeUnit;
 
 import org.apache.mina.core.filterchain.DefaultIoFilterChainBuilder;
 import org.apache.mina.core.filterchain.IoFilter;
@@ -14,6 +13,7 @@ import org.apache.mina.filter.executor.OrderedThreadPoolExecutor;
 import org.apache.mina.transport.socket.SocketSessionConfig;
 import org.apache.mina.transport.socket.nio.NioSocketAcceptor;
 
+import com.dyz.gameserver.commons.tool.ServerThreadFactory;
 import com.dyz.gameserver.net.codec.GameProtocolcodecFactory;
 
 public class NetManager {
@@ -31,7 +31,7 @@ public class NetManager {
         IoFilter protocol = new ProtocolCodecFilter(new GameProtocolcodecFactory());
         chain.addLast("codec", protocol);
 		threadpool = new OrderedThreadPoolExecutor(500);
-		threadpool.setThreadFactory(new MinaThreadFactory());
+		threadpool.setThreadFactory(new ServerThreadFactory("OrderedThreadPool"));
 		chain.addLast("threadPool", new ExecutorFilter(threadpool));
 		
 		int recsize = 5120;
@@ -47,36 +47,11 @@ public class NetManager {
 		acceptor.bind(new InetSocketAddress(listenPort));
 	}
 	
-	public void stop(){
+	public void stop() throws InterruptedException{
 		acceptor.unbind();
 		threadpool.shutdown();
+		threadpool.awaitTermination(5, TimeUnit.SECONDS);
 		acceptor.dispose(true);
 	}
 	
-	static class MinaThreadFactory implements ThreadFactory {
-        static final AtomicInteger poolNumber = new AtomicInteger(1);
-        final ThreadGroup group;
-        final AtomicInteger threadNumber = new AtomicInteger(1);
-        final String namePrefix;
-
-        MinaThreadFactory() {
-            SecurityManager s = System.getSecurityManager();
-            group = (s != null)? s.getThreadGroup() :
-                                 Thread.currentThread().getThreadGroup();
-            namePrefix = "OrderedThreadPool-" +
-                          poolNumber.getAndIncrement() +
-                         "-thread-";
-        }
-
-        public Thread newThread(Runnable r) {
-            Thread t = new Thread(group, r,
-                                  namePrefix + threadNumber.getAndIncrement(),
-                                  0);
-            if (t.isDaemon())
-                t.setDaemon(false);
-            if (t.getPriority() != Thread.NORM_PRIORITY)
-                t.setPriority(Thread.NORM_PRIORITY);
-            return t;
-        }
-    }
 }
