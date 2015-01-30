@@ -1,7 +1,8 @@
 package com.dyz.gameserver.net;
 
-import java.io.IOException;
 import java.net.InetSocketAddress;
+import java.util.concurrent.ThreadFactory;
+import java.util.concurrent.atomic.AtomicInteger;
 
 import org.apache.mina.core.filterchain.DefaultIoFilterChainBuilder;
 import org.apache.mina.core.filterchain.IoFilter;
@@ -12,15 +13,11 @@ import org.apache.mina.filter.executor.ExecutorFilter;
 import org.apache.mina.filter.executor.OrderedThreadPoolExecutor;
 import org.apache.mina.transport.socket.SocketSessionConfig;
 import org.apache.mina.transport.socket.nio.NioSocketAcceptor;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import com.dyz.gameserver.net.codec.GameProtocolcodecFactory;
 
 public class NetManager {
 
-	private static final Logger logger = LoggerFactory.getLogger(NetManager.class);
-	
 	private NioSocketAcceptor acceptor;
 	private OrderedThreadPoolExecutor threadpool;
 	
@@ -34,10 +31,11 @@ public class NetManager {
         IoFilter protocol = new ProtocolCodecFilter(new GameProtocolcodecFactory());
         chain.addLast("codec", protocol);
 		threadpool = new OrderedThreadPoolExecutor(500);
+		threadpool.setThreadFactory(new MinaThreadFactory());
 		chain.addLast("threadPool", new ExecutorFilter(threadpool));
 		
 		int recsize = 5120;
-		int sendsize = 40480;
+		int sendsize = 40480;                                                                                         
 		int timeout = 10;
 		SocketSessionConfig sc = acceptor.getSessionConfig();
 		sc.setReuseAddress(true);// 设置每一个非主监听连接的端口可以重用
@@ -54,4 +52,31 @@ public class NetManager {
 		threadpool.shutdown();
 		acceptor.dispose(true);
 	}
+	
+	static class MinaThreadFactory implements ThreadFactory {
+        static final AtomicInteger poolNumber = new AtomicInteger(1);
+        final ThreadGroup group;
+        final AtomicInteger threadNumber = new AtomicInteger(1);
+        final String namePrefix;
+
+        MinaThreadFactory() {
+            SecurityManager s = System.getSecurityManager();
+            group = (s != null)? s.getThreadGroup() :
+                                 Thread.currentThread().getThreadGroup();
+            namePrefix = "OrderedThreadPool-" +
+                          poolNumber.getAndIncrement() +
+                         "-thread-";
+        }
+
+        public Thread newThread(Runnable r) {
+            Thread t = new Thread(group, r,
+                                  namePrefix + threadNumber.getAndIncrement(),
+                                  0);
+            if (t.isDaemon())
+                t.setDaemon(false);
+            if (t.getPriority() != Thread.NORM_PRIORITY)
+                t.setPriority(Thread.NORM_PRIORITY);
+            return t;
+        }
+    }
 }
