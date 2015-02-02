@@ -25,7 +25,7 @@ public class UserService {
 		UserExample userExample = new UserExample();
 		userExample.createCriteria().andPhonenumberEqualTo(phone).andPasswdEqualTo(passwd);
 		List<User> users = userDao.selectByExample(userExample);
-		if(users!=null){
+		if(users!=null && users.size()>0){
 			return users.get(0);
 		}else{
 			return null;
