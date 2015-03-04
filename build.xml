@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>  
   
 <project name="GameServer" basedir="." default="makewar">  
-    <property name="classpath_lib" value="WEB-INF/lib" />
+    <property name="classpath_lib" value="WEB-INF/lib"/>
+    <property environment="sys_var"/>
     <property name= "tomcat_lib" value="D:/programs/apache-tomcat-7.0.57/lib"/>
     <property name="build" value="D:/project/GameServer"/> 
     <property name="war_dir" value="D:/project/GameServer.war"/>
-    <property name="sources" value="${basedir}/src"/>     
+    <property name="sources" value="${basedir}/src"/>
      
     <path id="classpath">
         <fileset dir="${classpath_lib}">     
@@ -17,14 +18,21 @@
     </path>     
     <property name="target" value="1.6"/>  
     <property name="source" value="1.6"/>  
-       
+   <target name="test">
+     <echo message=""/>
+   </target>
     <target name="init">
         <delete dir="${build}"/>
         <delete dir="${war_dir}"/>
         <mkdir dir="${build}"/>  
-        <mkdir dir="${build}/WEB-INF"/>  
+        <mkdir dir="${build}/WEB-INF"/>
         <mkdir dir="${build}/WEB-INF/classes"/>  
+        <mkdir dir="${build}/WEB-INF/classes/dbsqlmapper"/>  
         <mkdir dir="${build}/WEB-INF/lib"/>  
+    </target>  
+    <target name="complie" depends="init">
+        <javac srcdir="${sources}" destdir="${build}/WEB-INF/classes" encoding="utf-8" classpathref="classpath">  
+        </javac>  
         <copy todir="${build}/WEB-INF/classes/">  
             <fileset dir="${basedir}/resources/">  
                 <include name="**" />  
@@ -40,10 +48,11 @@
         		<include name="*.xml"/>
         	</fileset>
         </copy>
-    </target>  
-    <target name="complie" depends="init">
-        <javac srcdir="${sources}" destdir="${build}/WEB-INF/classes" encoding="utf-8" classpathref="classpath">  
-        </javac>  
+        <copy todir="${build}/WEB-INF/classes/dbsqlmapper/">
+        	<fileset dir="${sources}/dbsqlmapper/">
+        		<include name="**/*.xml"/>
+        	</fileset>
+        </copy>
     </target>
     <target name="makewar" depends="complie">  
         <war warfile="${war_dir}" webxml="${build}/WEB-INF/web.xml">  
