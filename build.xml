@@ -3,9 +3,9 @@
 <project name="GameServer" basedir="." default="makewar">  
     <property name="classpath_lib" value="WEB-INF/lib"/>
     <property environment="sys_var"/>
-    <property name= "tomcat_lib" value="D:/programs/apache-tomcat-7.0.57/lib"/>
-    <property name="build" value="D:/project/GameServer"/> 
-    <property name="war_dir" value="D:/project/GameServer.war"/>
+    <property name= "tomcat_lib" value="${sys_var.TOMCAT_HOME}/lib"/>
+    <property name="build" value="/root/project/GameServer"/> 
+    <property name="war_dir" value="/root/project/GameServer.war"/>
     <property name="sources" value="${basedir}/src"/>
      
     <path id="classpath">
