@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>  
+  
+<project name="GameServer" basedir="." default="makewar">  
+    <property name="classpath_lib" value="WEB-INF/lib" />
+    <property name= "tomcat_lib" value="D:/programs/apache-tomcat-7.0.57/lib"/>
+    <property name="build" value="D:/project/GameServer"/> 
+    <property name="war_dir" value="D:/project/GameServer.war"/>
+    <property name="sources" value="${basedir}/src"/>     
+     
+    <path id="classpath">
+        <fileset dir="${classpath_lib}">     
+            <include name="*.jar"/>     
+        </fileset>
+		<fileset dir="${tomcat_lib}">
+		    <include name="*.jar" />
+		</fileset>     
+    </path>     
+    <property name="target" value="1.6"/>  
+    <property name="source" value="1.6"/>  
+       
+    <target name="init">
+        <delete dir="${build}"/>
+        <delete dir="${war_dir}"/>
+        <mkdir dir="${build}"/>  
+        <mkdir dir="${build}/WEB-INF"/>  
+        <mkdir dir="${build}/WEB-INF/classes"/>  
+        <mkdir dir="${build}/WEB-INF/lib"/>  
+        <copy todir="${build}/WEB-INF/classes/">  
+            <fileset dir="${basedir}/resources/">  
+                <include name="**" />  
+            </fileset>  
+        </copy>
+        <copy todir="${build}/WEB-INF/lib/">
+        	<fileset dir="${basedir}/WEB-INF/lib/">
+        		<include name="*.jar"/>
+        	</fileset>
+        </copy>
+        <copy todir="${build}/WEB-INF/">
+        	<fileset dir="${basedir}/WEB-INF/">
+        		<include name="*.xml"/>
+        	</fileset>
+        </copy>
+    </target>  
+    <target name="complie" depends="init">
+        <javac srcdir="${sources}" destdir="${build}/WEB-INF/classes" encoding="utf-8" classpathref="classpath">  
+        </javac>  
+    </target>
+    <target name="makewar" depends="complie">  
+        <war warfile="${war_dir}" webxml="${build}/WEB-INF/web.xml">  
+        <lib dir="${build}/WEB-INF/lib">  
+            <include name="**" />  
+        </lib>  
+        <classes dir="${build}/WEB-INF/classes"/>  
+        </war>  
+    </target>  
+</project>  
