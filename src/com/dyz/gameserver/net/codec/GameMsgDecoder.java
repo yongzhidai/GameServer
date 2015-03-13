@@ -44,7 +44,16 @@ public class GameMsgDecoder extends CumulativeProtocolDecoder {
 			}
 			if(iobuffer.remaining()>=length){//
 				int preLimit = iobuffer.limit();//记录下当前的limit值
-				iobuffer.limit(MsgProtocol.flagSize+MsgProtocol.lengthSize+length);
+				
+				/**
+				 * 这行代码有一个bug，
+				 * 读取协议内容时，如果第一个字节不是1，则越过此字节继续往后的读，直到读到1，
+				 * 然而在设置limit时没有考虑到越过去的flag之前的字节，从而导致设置的limit比本应设置的位置小。
+				 * 所以导致，iobuffer中当前position到设置的limit的长度小于我们要读取的length。
+				 * 结果导致抛出BufferUnderflowException
+				 */
+				//iobuffer.limit(MsgProtocol.flagSize+MsgProtocol.lengthSize+length);
+				iobuffer.limit(iobuffer.position()+length);
 				byte[] body = new byte[length];
 				iobuffer.get(body);
 				iobuffer.limit(preLimit);
