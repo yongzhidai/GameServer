@@ -18,7 +18,7 @@ public class MinaMsgHandler extends IoHandlerAdapter{
 	@Override
 	public void sessionCreated(IoSession session) throws Exception {
 		new GameSession(session);
-		logger.info("a session create from---ip: "+session.getRemoteAddress());
+		logger.info("a session create from ip {}",session.getRemoteAddress());
 	}
 	
 	@Override
@@ -36,7 +36,8 @@ public class MinaMsgHandler extends IoHandlerAdapter{
 	@Override
 	public void exceptionCaught(IoSession session, Throwable cause)
 			throws Exception {
-		logger.error(cause.getMessage());
+		logger.error("服务器出错 {}",cause.getMessage());
+		cause.printStackTrace();
 	}
 	
 	@Override
@@ -49,6 +50,6 @@ public class MinaMsgHandler extends IoHandlerAdapter{
 				GameServerContext.removeCharacter(character);
 			}
 		}
-		logger.info("a session closed");
+		logger.info("a session closed ip:{}",session.getRemoteAddress());
 	}
 }
